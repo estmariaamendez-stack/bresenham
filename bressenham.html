@@ -14,10 +14,13 @@ Y1: <input type="number" id="y1">
 <script>
  //Se crea la funcion dibujar 
 function dibujar(){
-    // Se hace para probar que el boton creado funcione correctamente
-    alert("Funciona el botón");
+
     //llamado a la funcion para que realice las aaciones
     dibujarEjes();
+    // Prueba de la funcion plot
+    plot(2,2);
+    plot(3,3);
+    plot(4,4);
     
 }
 //se crea la funcion para tener los ejes en el grafico como nos pide el enunciado
@@ -49,6 +52,21 @@ function dibujarEjes(){
     for(let j = 0; j < canvas.height; j += 20){
         ctx.fillText(j/20, 0, canvas.height - j);
     }
+}
+//funcion para dibujar un punto 
+function plot(x, y){
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Tamaño de cada unidad (escala) para que cada punto tenga su espacio y sea visible
+    const escala = 20;
+
+
+    let px = x * escala;
+    //inicia el canvas de abajo izquierda como manejamos normalmente el plano cartesiano 
+    let py = canvas.height - (y * escala);
+
+    ctx.fillRect(px, py, 3, 3);
 }
 </script>
 <!-- Se corrige el boton, ya que presentaba un error -->
