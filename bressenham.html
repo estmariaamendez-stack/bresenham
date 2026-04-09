@@ -17,10 +17,8 @@ function dibujar(){
 
     //llamado a la funcion para que realice las aaciones
     dibujarEjes();
-    // Prueba de la funcion plot
-    plot(2,2);
-    plot(3,3);
-    plot(4,4);
+    // Prueba de línea
+    bresenham(2,2,10,8);
     
 }
 //se crea la funcion para tener los ejes en el grafico como nos pide el enunciado
@@ -53,6 +51,11 @@ function dibujarEjes(){
         ctx.fillText(j/20, 0, canvas.height - j);
     }
 }
+/**
+ * punto en el canvas según coordenadas cartesianas
+ * @param {number} x - Coordenada X
+ * @param {number} y - Coordenada Y
+ */
 //funcion para dibujar un punto 
 function plot(x, y){
     const canvas = document.querySelector("canvas");
@@ -67,6 +70,48 @@ function plot(x, y){
     let py = canvas.height - (y * escala);
 
     ctx.fillRect(px, py, 3, 3);
+}
+/**
+ * Implementación del algoritmo de líneas de Bresenham.
+ * @param {number} x0 - Coordenada X inicial.
+ * @param {number} y0 - Coordenada Y inicial.
+ * @param {number} x1 - Coordenada X final.
+ * @param {number} y1 - Coordenada Y final.
+ * @param {Function} plot - Función para dibujar el píxel (x, y).
+ */
+//se implementa la funcion  de bressenham para lineas  dada por el profe en el enunciado 
+function bresenham(x0, y0, x1, y1){
+// Cálculo de diferenciales y dirección del paso
+    let dx = Math.abs(x1 - x0);
+    let dy = Math.abs(y1 - y0);
+
+    let sx = (x0 < x1) ? 1 : -1;
+    let sy = (y0 < y1) ? 1 : -1;
+
+    let err = dx - dy;
+
+    while(true){
+
+         // Dibujar el punto actual
+        plot(x0, y0);
+
+         // Condición de finalización
+        if(x0 === x1 && y0 === y1) break;
+
+        let e2 = 2 * err;
+
+         // Ajuste en el eje X
+        if(e2 > -dy){
+            err -= dy;
+            x0 += sx;
+        }
+
+         // Ajuste en el eje Y
+        if(e2 < dx){
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
 </script>
 <!-- Se corrige el boton, ya que presentaba un error -->
