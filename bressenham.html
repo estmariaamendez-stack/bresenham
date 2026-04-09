@@ -16,9 +16,43 @@ Y1: <input type="number" id="y1">
 function dibujar(){
     // Se hace para probar que el boton creado funcione correctamente
     alert("Funciona el botón");
+    //llamado a la funcion para que realice las aaciones
+    dibujarEjes();
+    
+}
+//se crea la funcion para tener los ejes en el grafico como nos pide el enunciado
+function dibujarEjes(){
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Limpiar el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dibujar el eje X
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height);
+    ctx.lineTo(canvas.width, canvas.height);
+    ctx.stroke();
+
+    // Dibujar el eje Y
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, canvas.height);
+    ctx.stroke();
+
+    // Dibujar escala en X
+    for(let i = 0; i < canvas.width; i += 20){
+        ctx.fillText(i/20, i, canvas.height - 5);
+    }
+
+    // Dibujar escala en Y
+    for(let j = 0; j < canvas.height; j += 20){
+        ctx.fillText(j/20, 0, canvas.height - j);
+    }
 }
 </script>
-<button>Dibujar Línea</button>
+<!-- Se corrige el boton, ya que presentaba un error -->
+<button onclick="dibujar()">Dibujar Linea</button>
 
 <canvas width="500" height="500"></canvas>
 
