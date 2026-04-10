@@ -52,7 +52,14 @@ function dibujar(){
     let y1 =/**convierte de texto a numeros*/ parseInt(document.getElementById("y1").value);
     // Validación de datos para asegurar los valores correctos y los datos 
     if(isNaN(x0) || isNaN(y0) || isNaN(x1) || isNaN(y1)){
-        alert("Por favor ingrese todos los valores correctamente");
+     // se mejora el mensaje
+       alert("Error: debe ingresar valores numéricos en todos los campos");
+        return;
+    }
+    //validar el rango, que seango solo valores positivos los que se ingresen
+      if(x0 < 0 || y0 < 0 || x1 < 0 || y1 < 0){
+         // se mejora el mensaje
+       alert("Error: las coordenadas deben ser valores positivos dentro del plano cartesiano");
         return;
     }
     // se ejecuta el algoritmo de bressenham
