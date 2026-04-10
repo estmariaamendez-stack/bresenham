@@ -22,6 +22,11 @@ function dibujar(){
     let y0 = parseInt(document.getElementById("y0").value);
     let x1 = parseInt(document.getElementById("x1").value);
     let y1 =/**convierte de texto a numeros*/ parseInt(document.getElementById("y1").value);
+    // Validación de datos para asegurar los valores correctos y los datos 
+    if(isNaN(x0) || isNaN(y0) || isNaN(x1) || isNaN(y1)){
+        alert("Por favor ingrese todos los valores correctamente");
+        return;
+    }
     // se ejecuta el algoritmo de bressenham
     bresenham(x0, y0, x1, y1);
     
@@ -99,16 +104,13 @@ function bresenham(x0, y0, x1, y1){
     let sy = (y0 < y1) ? 1 : -1;
 
     let err = dx - dy;
+    //se corrige error y se inicializa
+    let paso = 0; 
 
     while(true){
 
          // Dibujar el punto actual
         plot(x0, y0);
-
-         // Condición de finalización
-        if(x0 === x1 && y0 === y1) break;
-
-        let e2 = 2 * err;
 
         // Agregar fila a la tabla
         tabla.innerHTML += `
@@ -118,7 +120,7 @@ function bresenham(x0, y0, x1, y1){
             <td>${y0}</td>
             <td>${err}</td>
         </tr>`;
-
+   // Condición de finalización
         if(x0 === x1 && y0 === y1) break;
 
         let e2 = 2 * err;
@@ -142,18 +144,34 @@ function bresenham(x0, y0, x1, y1){
 <!-- Se corrige el boton, ya que presentaba un error -->
 <button onclick="dibujar()">Dibujar Linea</button>
 
+<br><br>
+
 <canvas width="500" height="500"></canvas>
+
 <h3>Tabla de iteraciones</h3>
+
 <table border="1">
+
 <thead>
+
 <tr>
+
 <th>Paso</th>
+
 <th>X</th>
+
 <th>Y</th>
+
 <th>Error</th>
+
 </tr>
+
 </thead>
+
 <tbody id="tabla"></tbody>
+
 </table>
+
 </body>
+
 </html>
