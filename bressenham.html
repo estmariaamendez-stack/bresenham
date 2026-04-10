@@ -5,8 +5,36 @@
 <meta charset="UTF-8">
 <title>Línea con Bresenham</title>
 </head>
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+}
+
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+canvas{
+    border: 1px solid black;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+td, th{
+    padding: 5px;
+    border: 1px solid black;
+}
+</style>
+
 <body>
-<h2>Algoritmo de Bresenham</h2>
+<h2>Taller 2.2</h2>
 X0: <input type="number" id="x0">
 Y0: <input type="number" id="y0">
 X1: <input type="number" id="x1">
@@ -139,36 +167,45 @@ function bresenham(x0, y0, x1, y1){
         paso++;
     }
 }
+//funcion para limpiar el canvas y la tabla 
+function limpiar(){
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    document.getElementById("tabla").innerHTML = "";
+}
 </script>
 
 <!-- Se corrige el boton, ya que presentaba un error -->
 <button onclick="dibujar()">Dibujar Linea</button>
+<!-- se crea boton para limpiar cnavas y tabla -->
+<button onclick="limpiar()">Limpiar</button>
+
 
 <br><br>
 
-<canvas width="500" height="500"></canvas>
+<div class="contenedor">
 
-<h3>Tabla de iteraciones</h3>
+    <canvas width="500" height="500"></canvas>
 
-<table border="1">
+    <div>
+        <h3>Tabla de iteraciones</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Paso</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>Error</th>
+                </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+        </table>
+    </div>
 
-<thead>
-
-<tr>
-
-<th>Paso</th>
-
-<th>X</th>
-
-<th>Y</th>
-
-<th>Error</th>
-
-</tr>
-
-</thead>
-
-<tbody id="tabla"></tbody>
+</div>
 
 </table>
 
