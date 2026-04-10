@@ -50,18 +50,35 @@ function dibujar(){
     let y0 = parseInt(document.getElementById("y0").value);
     let x1 = parseInt(document.getElementById("x1").value);
     let y1 =/**convierte de texto a numeros*/ parseInt(document.getElementById("y1").value);
+// crea el espacio y accede al mensaje
+    let mensaje = document.getElementById("mensaje");
+     mensaje.textContent = "";
+
     // Validación de datos para asegurar los valores correctos y los datos 
     if(isNaN(x0) || isNaN(y0) || isNaN(x1) || isNaN(y1)){
-     // se mejora el mensaje
-       alert("Error: debe ingresar valores numéricos en todos los campos");
+     // se mejora el mensaje y se muesra en la interfaz
+       mensaje.textContent = "Error: debe ingresar valores numéricos en todos los campos";
         return;
     }
-    //validar el rango, que seango solo valores positivos los que se ingresen
+    //validar el rango, que seango solo valores positivos los que se ingresen 
       if(x0 < 0 || y0 < 0 || x1 < 0 || y1 < 0){
-         // se mejora el mensaje
-       alert("Error: las coordenadas deben ser valores positivos dentro del plano cartesiano");
+         // se mejora el mensaje y se muesra en la interfaz
+       mensaje.textContent = "Error: las coordenadas deben ser positivas";
         return;
     }
+     mensaje.textContent = "";
+//Muestra la ecuacion que se crea por la recta     
+     let ecuacion = document.getElementById("ecuacion");
+
+// Calcular pendiente
+let m = (y1 - y0) / (x1 - x0);
+
+// Calcular intercepto
+let b = y0 - (m * x0);
+
+// Mostrar ecuación
+ecuacion.textContent = `Ecuación: y = ${m.toFixed(2)}x + ${b.toFixed(2)}`;
+
     // se ejecuta el algoritmo de bressenham
     bresenham(x0, y0, x1, y1);
     
@@ -189,6 +206,8 @@ function limpiar(){
 <button onclick="dibujar()">Dibujar Linea</button>
 <!-- se crea boton para limpiar cnavas y tabla -->
 <button onclick="limpiar()">Limpiar</button>
+<p id="mensaje" style="color:red; font-weight:bold;"></p>
+<p id="ecuacion" style="color:blue; font-weight:bold;"></p>
 
 
 <br><br>
